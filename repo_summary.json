@@ -1,0 +1,240 @@
+{
+  "username": "imashutoshjha",
+  "repo_name": "symptoms_to_disease_predictor",
+  "total_files": 20,
+  "file_summaries": [
+    {
+      "path": ".devcontainer/devcontainer.json",
+      "type": ".json",
+      "size": 1018,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": ""
+    },
+    {
+      "path": "Testing.csv",
+      "type": ".csv",
+      "size": 13457,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": "Test file or testing data"
+    },
+    {
+      "path": "app/admin.py",
+      "type": ".py",
+      "size": 63,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "admin"
+      ],
+      "description": ""
+    },
+    {
+      "path": "app/apps.py",
+      "type": ".py",
+      "size": 81,
+      "functions": [],
+      "classes": [
+        "AppConfig"
+      ],
+      "imports": [
+        "AppConfig"
+      ],
+      "description": ""
+    },
+    {
+      "path": "app/models.py",
+      "type": ".py",
+      "size": 57,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "models"
+      ],
+      "description": "Machine learning model or data model"
+    },
+    {
+      "path": "app/tests.py",
+      "type": ".py",
+      "size": 60,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "TestCase"
+      ],
+      "description": "Test file or testing data"
+    },
+    {
+      "path": "app/views.py",
+      "type": ".py",
+      "size": 4676,
+      "functions": [
+        "fill_input",
+        "index",
+        "result"
+      ],
+      "classes": [],
+      "imports": [
+        "HttpResponse",
+        "render",
+        "joblib",
+        "numpy as np",
+        "pandas as pd"
+      ],
+      "description": ""
+    },
+    {
+      "path": "des.csv",
+      "type": ".csv",
+      "size": 11017,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": "CSV data file with columns: Disease,Description"
+    },
+    {
+      "path": "index.html",
+      "type": ".html",
+      "size": 25438,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": ""
+    },
+    {
+      "path": "manage.py",
+      "type": ".py",
+      "size": 813,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "os",
+        "sys",
+        "execute_from_command_line",
+        "may fail for some other reason. Ensure that the",
+        "django",
+        "Django. Are you sure it's installed and \""
+      ],
+      "description": ""
+    },
+    {
+      "path": "model.py",
+      "type": ".py",
+      "size": 3981,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "numpy as np",
+        "matplotlib.pyplot as plt",
+        "pandas as pd",
+        "joblib",
+        "RandomForestClassifier",
+        "confusion_matrix,accuracy_score"
+      ],
+      "description": "Machine learning model or data model"
+    },
+    {
+      "path": "precaution.csv",
+      "type": ".csv",
+      "size": 3488,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": "CSV data file with columns: Disease,Precaution_1,Precaution_2,Precaution_3,Precaution_4"
+    },
+    {
+      "path": "requirements.txt",
+      "type": ".txt",
+      "size": 15,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": ""
+    },
+    {
+      "path": "severity.csv",
+      "type": ".csv",
+      "size": 2332,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": "CSV data file with columns: Symptom,weight"
+    },
+    {
+      "path": "symptom_project/settings.py",
+      "type": ".py",
+      "size": 3272,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "os"
+      ],
+      "description": ""
+    },
+    {
+      "path": "symptom_project/urls.py",
+      "type": ".py",
+      "size": 903,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "views",
+        "Home",
+        "url, include",
+        "include, re_path",
+        "admin",
+        "views"
+      ],
+      "description": ""
+    },
+    {
+      "path": "symptom_project/wsgi.py",
+      "type": ".py",
+      "size": 408,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        "os",
+        "get_wsgi_application"
+      ],
+      "description": ""
+    },
+    {
+      "path": "templates/base.html",
+      "type": ".html",
+      "size": 1250,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": ""
+    },
+    {
+      "path": "templates/index.html",
+      "type": ".html",
+      "size": 26351,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": ""
+    },
+    {
+      "path": "templates/result.html",
+      "type": ".html",
+      "size": 1150,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": ""
+    }
+  ],
+  "file_types": {
+    ".json": 1,
+    ".csv": 4,
+    ".py": 10,
+    ".html": 4,
+    ".txt": 1
+  }
+}
