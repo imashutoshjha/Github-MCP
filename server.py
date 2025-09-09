@@ -3,7 +3,7 @@
 Simple MCP GitHub Server - Single Repository Focus
 """
 
-import asyncio
+import asyncio  #Async HTTP client library — used for making asynchronous calls to the GitHub API.
 import json
 import sys
 import os
@@ -16,26 +16,19 @@ class GitHubMCPServer:
         self.session = None
         
     async def start_session(self):
-        self.session = aiohttp.ClientSession() #aiohttp is needed for reusing of the single sesison.
+        self.session = aiohttp.ClientSession()
 
     async def close_session(self):
         if self.session:
             await self.session.close()
 
-    def get_headers(self): #this function build a proper headers to communicate with the github api.
-        headers = {'Accept': 'application/vnd.github.v3+json'} #it is for the github so that it respond as per github api version 3.
+    def get_headers(self): #this function will create a headers dictionary which will have 'Accept', 'Authorizaton'
+        headers = {'Accept': 'application/vnd.github.v3+json'}
         if self.github_token:
             headers['Authorization'] = f'token {self.github_token}' 
         return headers
 
-    async def get_repo_contents(self, owner, repo, path=""):
-        url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
-        async with self.session.get(url, headers=self.get_headers()) as response:
-            if response.status == 200:
-                return await response.json()
-            return []
-
-    async def get_file_content(self, owner, repo, path):
+    async def get_file_content(self, owner, repo, path): #this will return a dictionary having keys of name,path,sha,size,url,download_url,type,content,encoding
         url = f'https://api.github.com/repos/{owner}/{repo}/contents/{path}'
         async with self.session.get(url, headers=self.get_headers()) as response:
             if response.status == 200:
@@ -44,10 +37,10 @@ class GitHubMCPServer:
                     return base64.b64decode(data['content']).decode('utf-8', errors='ignore')
             return ""
 
-    async def get_repo_tree(self, owner, repo):
+    async def get_repo_tree(self, owner, repo): #it returns the entire repo file trees ie. list of dicts
         """Get all files in repository recursively"""
         url = f'https://api.github.com/repos/{owner}/{repo}/git/trees/HEAD'
-        params = {'recursive': '1'}
+        params = {'recursive': '1'} #It say don’t just give me top-level files, give me the entire tree (all subfolders, all files).
         
         async with self.session.get(url, headers=self.get_headers(), params=params) as response:
             if response.status == 200:
@@ -61,9 +54,9 @@ class GitHubMCPServer:
         # Get all files in the repository
         tree = await self.get_repo_tree(username, repo_name)
         
-        # Filter for code files and get their content
+        # Filter for code files and get their content - Including CSV files
         for item in tree:
-            if item['type'] == 'blob' and item['path'].endswith(('.py', '.js', '.ts', '.java', '.cpp', '.c', '.go', '.rs', '.php', '.rb', '.swift', '.kt', '.md', '.txt', '.json', '.yaml', '.yml', '.html', '.css', '.sql')):
+            if item['type'] == 'blob' and item['path'].endswith(('.py', '.js', '.ts', '.java', '.cpp', '.c', '.go', '.rs', '.php', '.rb', '.swift', '.kt', '.md', '.txt', '.json', '.yaml', '.yml', '.html', '.css', '.sql', '.csv')):
                 if item['size'] < 50000:  # Skip very large files
                     content = await self.get_file_content(username, repo_name, item['path'])
                     if content:
@@ -93,18 +86,33 @@ class GitHubMCPServer:
                     'jsonrpc': '2.0',
                     'id': request_id,
                     'result': {
-                        'tools': [{
-                            'name': 'get_repo_data',
-                            'description': 'Get specific repository data with all files',
-                            'inputSchema': {
-                                'type': 'object',
-                                'properties': {
-                                    'username': {'type': 'string'},
-                                    'repo_name': {'type': 'string'}
-                                },
-                                'required': ['username', 'repo_name']
+                        'tools': [
+                            {
+                                'name': 'get_repo_data',
+                                'description': 'Get specific repository data with all files',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'username': {'type': 'string'},
+                                        'repo_name': {'type': 'string'}
+                                    },
+                                    'required': ['username', 'repo_name']
+                                }
+                            },
+                            {
+                                'name': 'get_file_content',
+                                'description': 'Get content of a specific file',
+                                'inputSchema': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'username': {'type': 'string'},
+                                        'repo_name': {'type': 'string'},
+                                        'file_path': {'type': 'string'}
+                                    },
+                                    'required': ['username', 'repo_name', 'file_path']
+                                }
                             }
-                        }]
+                        ]
                     }
                 }
             
@@ -119,6 +127,15 @@ class GitHubMCPServer:
                         'id': request_id,
                         'result': {
                             'content': [{'type': 'text', 'text': json.dumps(result)}]
+                        }
+                    }
+                elif tool_name == 'get_file_content':
+                    content = await self.get_file_content(arguments['username'], arguments['repo_name'], arguments['file_path'])
+                    return {
+                        'jsonrpc': '2.0',
+                        'id': request_id,
+                        'result': {
+                            'content': [{'type': 'text', 'text': content}]
                         }
                     }
         
