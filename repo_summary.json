@@ -1,229 +1,74 @@
 {
   "username": "imashutoshjha",
-  "repo_name": "symptoms_to_disease_predictor",
-  "total_files": 20,
+  "repo_name": "CI-CD",
+  "total_files": 5,
   "file_summaries": [
     {
-      "path": ".devcontainer/devcontainer.json",
-      "type": ".json",
-      "size": 1018,
+      "path": "README.md",
+      "type": ".md",
+      "size": 7,
       "functions": [],
       "classes": [],
       "imports": [],
-      "description": ""
+      "description": "Documentation file"
     },
     {
-      "path": "Testing.csv",
-      "type": ".csv",
-      "size": 13457,
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "description": "Test file or testing data"
-    },
-    {
-      "path": "app/admin.py",
+      "path": "app.py",
       "type": ".py",
-      "size": 63,
-      "functions": [],
-      "classes": [],
-      "imports": [
-        "admin"
-      ],
-      "description": ""
-    },
-    {
-      "path": "app/apps.py",
-      "type": ".py",
-      "size": 81,
-      "functions": [],
-      "classes": [
-        "AppConfig"
-      ],
-      "imports": [
-        "AppConfig"
-      ],
-      "description": ""
-    },
-    {
-      "path": "app/models.py",
-      "type": ".py",
-      "size": 57,
-      "functions": [],
-      "classes": [],
-      "imports": [
-        "models"
-      ],
-      "description": "Machine learning model or data model"
-    },
-    {
-      "path": "app/tests.py",
-      "type": ".py",
-      "size": 60,
-      "functions": [],
-      "classes": [],
-      "imports": [
-        "TestCase"
-      ],
-      "description": "Test file or testing data"
-    },
-    {
-      "path": "app/views.py",
-      "type": ".py",
-      "size": 4676,
+      "size": 4990,
       "functions": [
-        "fill_input",
-        "index",
-        "result"
+        "load_and_enrich"
       ],
       "classes": [],
       "imports": [
-        "HttpResponse",
-        "render",
-        "joblib",
-        "numpy as np",
-        "pandas as pd"
-      ],
-      "description": ""
-    },
-    {
-      "path": "des.csv",
-      "type": ".csv",
-      "size": 11017,
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "description": "CSV data file with columns: Disease,Description"
-    },
-    {
-      "path": "index.html",
-      "type": ".html",
-      "size": 25438,
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "description": ""
-    },
-    {
-      "path": "manage.py",
-      "type": ".py",
-      "size": 813,
-      "functions": [],
-      "classes": [],
-      "imports": [
+        "streamlit as st",
         "os",
-        "sys",
-        "execute_from_command_line",
-        "may fail for some other reason. Ensure that the",
-        "django",
-        "Django. Are you sure it's installed and \""
+        "generate_news_summary"
       ],
       "description": ""
+    },
+    {
+      "path": "indian_stocks_cleaned.csv",
+      "type": ".csv",
+      "size": 6340,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "description": "CSV data file with columns: SYMBOL,NAME,OPEN,HIGH,LOW,PREV. CLOSE,LTP,INDICATIVE CLOSE,CHNG,%CHNG,VOLUME (shares),VALUE (\u20b9 Crores),52W H,52W L,30 D %CHNG",
+      "rows": 51
     },
     {
       "path": "model.py",
       "type": ".py",
-      "size": 3981,
-      "functions": [],
-      "classes": [],
-      "imports": [
-        "numpy as np",
-        "matplotlib.pyplot as plt",
-        "pandas as pd",
-        "joblib",
-        "RandomForestClassifier",
-        "confusion_matrix,accuracy_score"
+      "size": 5766,
+      "functions": [
+        "get_secret",
+        "get_news",
+        "generate_response",
+        "generate_news_summary"
       ],
-      "description": "Machine learning model or data model"
-    },
-    {
-      "path": "precaution.csv",
-      "type": ".csv",
-      "size": 3488,
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "description": "CSV data file with columns: Disease,Precaution_1,Precaution_2,Precaution_3,Precaution_4"
+      "classes": [
+        "State"
+      ],
+      "imports": [
+        "os",
+        "requests",
+        "TypedDict, List, Dict, Any",
+        "boto3",
+        "ClientError",
+        "json",
+        "HumanMessage, SystemMessage",
+        "ChatOpenAI",
+        "StateGraph, END",
+        "boto3",
+        "ClientError"
+      ],
+      "description": "Main application entry point"
     },
     {
       "path": "requirements.txt",
       "type": ".txt",
-      "size": 15,
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "description": ""
-    },
-    {
-      "path": "severity.csv",
-      "type": ".csv",
-      "size": 2332,
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "description": "CSV data file with columns: Symptom,weight"
-    },
-    {
-      "path": "symptom_project/settings.py",
-      "type": ".py",
-      "size": 3272,
-      "functions": [],
-      "classes": [],
-      "imports": [
-        "os"
-      ],
-      "description": ""
-    },
-    {
-      "path": "symptom_project/urls.py",
-      "type": ".py",
-      "size": 903,
-      "functions": [],
-      "classes": [],
-      "imports": [
-        "views",
-        "Home",
-        "url, include",
-        "include, re_path",
-        "admin",
-        "views"
-      ],
-      "description": ""
-    },
-    {
-      "path": "symptom_project/wsgi.py",
-      "type": ".py",
-      "size": 408,
-      "functions": [],
-      "classes": [],
-      "imports": [
-        "os",
-        "get_wsgi_application"
-      ],
-      "description": ""
-    },
-    {
-      "path": "templates/base.html",
-      "type": ".html",
-      "size": 1250,
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "description": ""
-    },
-    {
-      "path": "templates/index.html",
-      "type": ".html",
-      "size": 26351,
-      "functions": [],
-      "classes": [],
-      "imports": [],
-      "description": ""
-    },
-    {
-      "path": "templates/result.html",
-      "type": ".html",
-      "size": 1150,
+      "size": 1351,
       "functions": [],
       "classes": [],
       "imports": [],
@@ -231,10 +76,9 @@
     }
   ],
   "file_types": {
-    ".json": 1,
-    ".csv": 4,
-    ".py": 10,
-    ".html": 4,
+    ".md": 1,
+    ".py": 2,
+    ".csv": 1,
     ".txt": 1
   }
 }
