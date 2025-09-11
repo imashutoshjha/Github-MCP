@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 FastMCP GitHub Server with JSON-RPC 2.0. used under the hood.
+#future improvement: If no fresh push happened, then no need to updated the cache.
 """
 
 import sys
