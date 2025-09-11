@@ -157,21 +157,21 @@ class GitHubFastMCPClient:
         """LLM Call 1: Decide which files are relevant with improved parsing"""
         prompt = f"""Based on the user question and repository summary, identify the most relevant files.
 
-Repository Summary:
-{json.dumps(summary_json, indent=2)}
+                Repository Summary:
+                {json.dumps(summary_json, indent=2)}
 
-User Question: {user_question}
+                User Question: {user_question}
 
-Respond with ONLY the file paths that are most relevant, separated by commas. For example:
-file1.py,file2.csv,file3.md
+                Respond with ONLY the file paths that are most relevant, separated by commas. For example:
+                file1.py,file2.csv,file3.md
 
-Important: Only return file paths that exist in the repository summary above.
+                Important: Only return file paths that exist in the repository summary above.
 
-File paths only:"""
+                File paths only:"""
 
         try:
             response = self.model.generate_content(prompt)
-            response_text = response.text.strip()
+            response_text = response.text.strip() #file names comma seprated eg. app.py,model.py,README.md
             
             # Improved parsing - handle various formats LLM might return
             lines = response_text.split('\n')
@@ -180,6 +180,7 @@ File paths only:"""
                 line = line.strip()
                 if line and not line.startswith('#') and not line.startswith('-') and ',' in line:
                     file_line = line
+                    print("file line",file_line)
                     break
             
             if not file_line:
@@ -208,12 +209,12 @@ File paths only:"""
         """Enhanced LLM call for final answer with better context building"""
         
         # Build focused, well-structured context
-        context_parts = [f"User question: {user_question}\n"]
+        context_parts = [f"User question: {user_question}\n"] 
         
         # Add repository overview
         context_parts.append(f"Repository: {summary_json.get('username', 'unknown')}/{summary_json.get('repo_name', 'unknown')}")
-        context_parts.append(f"Total files analyzed: {summary_json.get('total_files', 0)}\n")
-        
+        context_parts.append(f"Total files analyzed: {summary_json.get('total_files', 0)}\n") #context_parts = ['User question: tell me full flow of my code\n', 'Repository: imashutoshjha/CI-CD', 'Total files analyzed: 5\n']
+ 
         # Add file contents with better formatting
         for file_path, content in files_content.items():
             if content and content.strip():
@@ -228,16 +229,16 @@ File paths only:"""
         # Improved prompt with specific instructions
         prompt = f"""You are a code analysis expert. Analyze the following repository files and provide a comprehensive answer to the user's question.
 
-{final_context}
+                {final_context}
 
-Instructions:
-- Provide specific, detailed explanations based on the actual code content
-- Reference specific functions, classes, or code sections when relevant
-- If files appear empty or problematic, mention this clearly
-- Focus on answering the user's specific question
-- Be thorough but concise
+                Instructions:
+                - Provide specific, detailed explanations based on the actual code content
+                - Reference specific functions, classes, or code sections when relevant
+                - If files appear empty or problematic, mention this clearly
+                - Focus on answering the user's specific question
+                - Be thorough but concise
 
-Answer:"""
+                Answer:"""
 
         try:
             response = self.model.generate_content(prompt)
@@ -253,17 +254,17 @@ Answer:"""
         env['GOOGLE_API_KEY'] = os.getenv('GOOGLE_API_KEY')
         
         server_params = StdioServerParameters(
-            command=sys.executable,
-            args=[self.server_script],
-            env=env
+            command=sys.executable,     #it contains the python path.
+            args=[self.server_script],  #it contains the server path
+            env=env                     #it contains the api keys
         )
         
         print(f"🚀 Starting FastMCP session and loading repository: {username}/{repo_name}...")
         
         # FIXED: Proper context manager usage
-        async with stdio_client(server_params) as (read, write):
-            async with ClientSession(read, write) as session:
-                await session.initialize()
+        async with stdio_client(server_params) as (read, write): #it runs the MCP server (server.py) and give me two channels (read, write) to talk to it.
+            async with ClientSession(read, write) as session: #it wraps the read, write into a session which follows the JSON-RPC protocol which can be used for tool calling
+                await session.initialize() #it is for MCP handshake. the server will reply like:m { "type": "initialize_result", "capabilities": ["get_repo_data", "get_file_content"]}
                 self.session = session
                 
                 print("✅ FastMCP session initialized successfully")
